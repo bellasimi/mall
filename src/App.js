@@ -1,10 +1,16 @@
+/* esling-disable*/
 import logo from './logo.svg';
 import './App.css';
 import { Container,Navbar,Nav,NavDropdown,FormControl,Button,Form} from 'react-bootstrap';
+import React, { useState } from 'react';
+import data from './data.js';
 
 function App() {
+
+    let [shoes,setShoes] = useState(data);
+
   return (
-    <div className="App">
+   <div className="App">
      <Navbar bg="light" expand="lg">
        <Container fluid>
          <Navbar.Brand href="#">Navbar scroll</Navbar.Brand>
@@ -50,27 +56,31 @@ function App() {
        </p>
      </header>
      /*원조 부트스트랩 용량이 더 크다. - link html에 넣어주기*/
-     <div className="container">
-        <div className="row">
-            <div className="col-md-4">
-                <img src="img/apple.jpg"></img>
-                <h2>애플 노트북</h2>
-                <p>1,000,000원</p>
-            </div>
-            <div className="col-md-4">
-                   <img src="img/iphone.jpg"></img>
-                   <h2>아이폰</h2>
-                   <p>1,200,000원</p>
-            </div>
-            <div className="col-md-4">
-                   <img src="img/ipod.jpg"></img>
-                   <h2>아이팟</h2>
-                   <p>200,000원</p>
+        <div className="container">
+            <div className="row">
+                {
+                    shoes.map((each,idx) => {
+                        return(
+                                <Device id={each.id} shoes={shoes} idx={idx}/>
+                        )
+                    })
+                }
             </div>
         </div>
-     </div>
-    </div>
+   </div>
   );
+}
+
+function Device(props) {
+    return(
+            <div className="col-md-4">
+                   <p>{props.id}</p>
+                   <img src= {props.shoes[props.idx].img}></img>
+                   <h2>{props.shoes[props.idx].title}</h2>
+                   <p>{props.shoes[props.idx].price}</p>
+
+            </div>
+    );
 }
 
 export default App;
