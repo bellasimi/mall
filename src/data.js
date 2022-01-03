@@ -1,22 +1,25 @@
 export default [
   {
-    id : device0,
+    id : 0,
     title : "애플 노트북",
     content : "nice laptop",
-    price : "1,000,000원"
+    price : "1,000,000원",
+    img : "img/apple.jpg"
   },
 
   {
-    id : device1,
+    id : 1,
     title : "아이폰",
     content : "high-end smartphone",
-    price : "1,200,000원"
+    price : "1,200,000원",
+    img : "img/iphone.jpg"
   },
 
   {
-    id :device2,
+    id : 2,
     title : "아이팟",
     content : "multi mp3",
-    price : "200,000원"
+    price : "200,000원",
+    img : "img/ipod.jpg"
   }
 ]
