@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 function Detail(){
+
+    let history = useHistory();
+
     return(
         <div className="container">
               <div className="row">
@@ -12,7 +16,7 @@ function Detail(){
                   <p>상품설명</p>
                   <p>120000원</p>
                   <button className="btn btn-danger">주문하기</button>
-                  <button className="btn btn-danger">주문취소</button>
+                  <button className="btn btn-danger" onClick={()=>{history.goBack()}}>주문취소</button>
                 </div>
               </div>
         </div>

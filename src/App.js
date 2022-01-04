@@ -56,6 +56,9 @@ function App() {
      </Route>
      <Route path="/detail" component={Detail}></Route>
      <Route path="/abc" component={Modal}></Route>
+     <Route path="/:id">
+        <div>아무거나 Link로 적으면 이페이지를 보여줌</div>
+     </Route>
 
      /*원조 부트스트랩 용량이 더 크다. - link html에 넣어주기*/
 
