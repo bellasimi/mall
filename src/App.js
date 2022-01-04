@@ -53,9 +53,7 @@ function App() {
      <Route exact path="/">
         <Main shoes={shoes}/>
      </Route>
-     <Route path="/detail">
-        <div>디테일</div>
-     </Route>
+     <Route path="/detail" component={Detail}></Route>
      <Route path="/abc" component={Modal}></Route>
 
      /*원조 부트스트랩 용량이 더 크다. - link html에 넣어주기*/
@@ -90,6 +88,23 @@ function Main(props) {
     )
 }
 
+function Detail(){
+    return(
+        <div className="container">
+              <div className="row">
+                <div className="col-md-6">
+                  <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
+                </div>
+                <div className="col-md-6 mt-4">
+                  <h4 className="pt-5">상품명</h4>
+                  <p>상품설명</p>
+                  <p>120000원</p>
+                  <button className="btn btn-danger">주문하기</button>
+                </div>
+              </div>
+        </div>
+    )
+}
 function Device(props) {
     return(
             <div className="col-md-4">
