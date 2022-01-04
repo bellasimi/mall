@@ -51,25 +51,7 @@ function App() {
 
 
      <Route exact path="/">
-         <header>
-           <h1> SHOPPING</h1>
-           <p>
-             GET IT! BUT IT!
-           </p>
-           <p>
-           </p>
-         </header>
-         <div className="container">
-             <div className="row">
-                 {
-                     shoes.map((each,idx) => {
-                         return(
-                                 <Device each={each} shoes={shoes} idx={idx} key={idx}/>
-                         )
-                     })
-                 }
-             </div>
-         </div>
+        <Main shoes={shoes}/>
      </Route>
      <Route path="/detail">
         <div>디테일</div>
@@ -82,7 +64,31 @@ function App() {
   );
 }
 
-
+function Main(props) {
+    return(
+        <div>
+             <header>
+               <h1> SHOPPING</h1>
+               <p>
+                 GET IT! BUT IT!
+               </p>
+               <p>
+               </p>
+             </header>
+             <div className="container">
+                 <div className="row">
+                     {
+                         props.shoes.map((each,idx) => {
+                             return(
+                                     <Device each={each} shoes={props.shoes} idx={idx} key={idx}/>
+                             )
+                         })
+                     }
+                 </div>
+             </div>
+        </div>
+    )
+}
 
 function Device(props) {
     return(
