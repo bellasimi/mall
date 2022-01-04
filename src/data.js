@@ -23,3 +23,4 @@ export default [
     img : "ipod.jpg"
   }
 ]
+
