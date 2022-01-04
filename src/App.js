@@ -1,9 +1,10 @@
-/* esling-disable*/
+/*esling-disable*/
 import logo from './logo.svg';
 import './App.css';
 import { Container,Navbar,Nav,NavDropdown,FormControl,Button,Form} from 'react-bootstrap';
 import React, { useState } from 'react';
 import data from './data.js';
+import {Link, Route, Switch } from 'react-router-dom';
 
 function App() {
 
@@ -47,40 +48,62 @@ function App() {
          </Navbar.Collapse>
        </Container>
      </Navbar>
-     <header>
-       <h1> SHOPPING</h1>
-       <p>
-         GET IT! BUT IT!
-       </p>
-       <p>
-       </p>
-     </header>
+
+
+     <Route exact path="/">
+         <header>
+           <h1> SHOPPING</h1>
+           <p>
+             GET IT! BUT IT!
+           </p>
+           <p>
+           </p>
+         </header>
+         <div className="container">
+             <div className="row">
+                 {
+                     shoes.map((each,idx) => {
+                         return(
+                                 <Device each={each} shoes={shoes} idx={idx} key={idx}/>
+                         )
+                     })
+                 }
+             </div>
+         </div>
+     </Route>
+     <Route path="/detail">
+        <div>디테일</div>
+     </Route>
+     <Route path="/abc" component={Modal}></Route>
+
      /*원조 부트스트랩 용량이 더 크다. - link html에 넣어주기*/
-        <div className="container">
-            <div className="row">
-                {
-                    shoes.map((each,idx) => {
-                        return(
-                                <Device id={each.id} shoes={shoes} idx={idx}/>
-                        )
-                    })
-                }
-            </div>
-        </div>
+
    </div>
   );
 }
 
+
+
 function Device(props) {
     return(
             <div className="col-md-4">
-                   <p>{props.id}</p>
-                   <img src= {props.shoes[props.idx].img}></img>
+                   <p>{props.each.id}</p>
+                   <img src= { 'img/' + props.shoes[props.idx].img}></img>
                    <h2>{props.shoes[props.idx].title}</h2>
                    <p>{props.shoes[props.idx].price}</p>
 
             </div>
     );
+}
+
+function Modal(){
+
+    return(
+        <div>
+            <p>ABC페이지</p>
+        </div>
+    );
+
 }
 
 export default App;

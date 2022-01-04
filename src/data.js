@@ -4,7 +4,7 @@ export default [
     title : "애플 노트북",
     content : "nice laptop",
     price : "1,000,000원",
-    img : "img/apple.jpg"
+    img : "apple.jpg"
   },
 
   {
@@ -12,7 +12,7 @@ export default [
     title : "아이폰",
     content : "high-end smartphone",
     price : "1,200,000원",
-    img : "img/iphone.jpg"
+    img : "iphone.jpg"
   },
 
   {
@@ -20,6 +20,6 @@ export default [
     title : "아이팟",
     content : "multi mp3",
     price : "200,000원",
-    img : "img/ipod.jpg"
+    img : "ipod.jpg"
   }
 ]
