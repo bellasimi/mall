@@ -1,5 +1,14 @@
 import React, { useState } from 'react';
 import { useHistory,useParams } from 'react-router-dom';
+import styled from 'styled-components';
+
+
+let 새박스 = styled.h4`
+    font-size : 30px;
+    padding : 20px;
+    color : ${ props => props.색상 }
+`;
+
 
 function Detail(props){
 
@@ -8,6 +17,7 @@ function Detail(props){
 
     return(
         <div className="container">
+               <새박스 색상 = 'red' >Detail</새박스>
 
               <div className="row">
                 <div className="col-md-6">
