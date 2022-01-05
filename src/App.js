@@ -7,6 +7,7 @@ import data from './data.js';
 import {Link, Route, Switch } from 'react-router-dom';
 import Detail from './Detail.js';
 
+
 function App() {
 
     let [shoes,setShoes] = useState(data);
@@ -54,7 +55,9 @@ function App() {
          <Route exact path="/">
             <Main shoes={shoes}/>
          </Route>
-         <Route path="/detail" component={Detail}></Route>
+         <Route path="/detail/:id" >
+            <Detail shoes = {shoes}/>
+         </Route>
          <Route path="/abc" component={Modal}></Route>
          <Route path="/:id">
             <div>아무거나 Link로 적으면 이페이지를 보여줌</div>
@@ -82,7 +85,7 @@ function Main(props) {
                      {
                          props.shoes.map((each,idx) => {
                              return(
-                                     <Device each={each} shoes={props.shoes} idx={idx} key={idx}/>
+                                     <Device each={each} shoes={props.shoes} idx={idx} key={idx} />
                              )
                          })
                      }
@@ -95,11 +98,12 @@ function Main(props) {
 function Device(props) {
     return(
             <div className="col-md-4">
+                <a href = {"/detail/"+props.shoes[props.idx].id}>
                    <p>{props.each.id}</p>
                    <img src= { 'img/' + props.shoes[props.idx].img}></img>
                    <h2>{props.shoes[props.idx].title}</h2>
                    <p>{props.shoes[props.idx].price}</p>
-
+                </a>
             </div>
     );
 }
