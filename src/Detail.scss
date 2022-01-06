@@ -1,0 +1,49 @@
+$mainColor : #ffff11;
+
+.black {
+    background-color: $mainColor;
+}
+
+@mixin 함수() {
+    background: #eeeeee;
+    padding: 10px;
+    border-radius: 5px;
+    //max-width : 500px;
+    width: 100%;
+    margin: auto;
+    p {
+        margin-bottom: 0px;
+    }
+}
+
+.my-alert {
+    @include 함수();
+}
+
+.my-alert2 {
+    @extend .my-alert;
+    background: #ffe591;
+}
+
+
+
+
+/*
+div.container h4 {
+    color : blue;
+}
+
+
+div.container p {
+    color : green;
+}
+
+div.container {
+    h4 {
+        color : blue;
+    }
+    p {
+        color : green;
+    }
+} */
+
