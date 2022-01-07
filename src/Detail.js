@@ -2,7 +2,6 @@ import React, { useState,useEffect } from 'react';
 import { useHistory,useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import './Detail.scss';
-
 let 새박스 = styled.h4`
     font-size : 30px;
     padding : 20px;

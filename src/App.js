@@ -6,11 +6,13 @@ import React, { useState } from 'react';
 import data from './data.js';
 import {Link, Route, Switch } from 'react-router-dom';
 import Detail from './Detail.js';
+import axios from 'axios';
 
 
 function App() {
 
     let [shoes,setShoes] = useState(data);
+    let shoesArr = [...shoes];
 
   return (
    <div className="App">
@@ -53,7 +55,16 @@ function App() {
 
     <Switch>
          <Route exact path="/">
-            <Main shoes={shoes}/>
+            <Main shoes={shoes} shoesArr={shoesArr}/>
+              <button className="btn btn-danger" onClick={()=>{
+                 axios.get('https://codingapple1.github.io/shop/data2.json')
+                 .then((result)=>{
+                    shoesArr.push(...result.data);
+                    console.log(shoesArr);
+                    setShoes(shoesArr);
+                 })
+                 .catch(()=>{console.log("실패")});
+              }}>더보기</button>
          </Route>
          <Route path="/detail/:id" >
             <Detail shoes = {shoes}/>
@@ -65,11 +76,13 @@ function App() {
      </Switch>
      /*원조 부트스트랩 용량이 더 크다. - link html에 넣어주기*/
 
+
    </div>
   );
 }
 
 function Main(props) {
+
     return(
         <div>
              <header>
@@ -88,9 +101,12 @@ function Main(props) {
                                      <Device each={each} shoes={props.shoes} idx={idx} key={idx} />
                              )
                          })
+
                      }
+
                  </div>
              </div>
+
         </div>
     )
 }
