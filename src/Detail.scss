@@ -1,4 +1,4 @@
-$mainColor : #ffff11;
+$mainColor : white;
 
 .black {
     background-color: $mainColor;
@@ -10,7 +10,7 @@ $mainColor : #ffff11;
     border-radius: 5px;
     //max-width : 500px;
     width: 100%;
-    margin: auto;
+    margin: auto auto 20px auto;
     p {
         margin-bottom: 0px;
     }

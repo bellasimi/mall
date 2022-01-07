@@ -25,7 +25,7 @@ function App() {
              navbarScroll
            >
              <Nav.Link href="/">Home</Nav.Link>
-             <Nav.Link ><Link to="/detail">Detail</Link></Nav.Link>
+             <Nav.Link as = {Link} to="/detail/0">Detail</Nav.Link>
              <NavDropdown title="Link" id="navbarScrollingDropdown">
                <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
                <NavDropdown.Item href="#action4">Another action</NavDropdown.Item>
@@ -98,12 +98,12 @@ function Main(props) {
 function Device(props) {
     return(
             <div className="col-md-4">
-                <a href = {"/detail/"+props.shoes[props.idx].id}>
+                <Link to = {"/detail/"+props.shoes[props.idx].id}>
                    <p>{props.each.id}</p>
                    <img src= { 'img/' + props.shoes[props.idx].img}></img>
                    <h2>{props.shoes[props.idx].title}</h2>
                    <p>{props.shoes[props.idx].price}</p>
-                </a>
+                </Link>
             </div>
     );
 }
