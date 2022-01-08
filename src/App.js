@@ -15,6 +15,8 @@ function App() {
     let [shoes,setShoes] = useState(data);
     let shoesArr = [...shoes];
     let [loading,setLoading] = useState(false);
+    let [left,setLeft] = useState([10,11,12]);
+
   return (
    <div className="App">
      <Navbar bg="light" expand="lg">
@@ -77,7 +79,8 @@ function App() {
              }}>더보기</button>
          </Route>
          <Route path="/detail/:id" >
-            <Detail shoes = {shoes}/>
+            <Detail shoes = {shoes} left={left} setLeft={setLeft}/>
+
          </Route>
          <Route path="/abc" component={Modal}></Route>
          <Route path="/:id">
@@ -152,5 +155,7 @@ function Loading() {
         </div>
     )
 }
+
+
 
 export default App;
