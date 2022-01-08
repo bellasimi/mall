@@ -1,6 +1,7 @@
 /*esling-disable*/
 import logo from './logo.svg';
 import './App.css';
+import './main.scss';
 import { Container,Navbar,Nav,NavDropdown,FormControl,Button,Form} from 'react-bootstrap';
 import React, { useState } from 'react';
 import data from './data.js';
@@ -13,7 +14,7 @@ function App() {
 
     let [shoes,setShoes] = useState(data);
     let shoesArr = [...shoes];
-
+    let [loading,setLoading] = useState(false);
   return (
    <div className="App">
      <Navbar bg="light" expand="lg">
@@ -27,7 +28,7 @@ function App() {
              navbarScroll
            >
              <Nav.Link href="/">Home</Nav.Link>
-             <Nav.Link as = {Link} to="/detail/0">Detail</Nav.Link>
+             <Nav.Link  as = {Link} to="/detail/0">Detail</Nav.Link>
              <NavDropdown title="Link" id="navbarScrollingDropdown">
                <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
                <NavDropdown.Item href="#action4">Another action</NavDropdown.Item>
@@ -56,15 +57,24 @@ function App() {
     <Switch>
          <Route exact path="/">
             <Main shoes={shoes} shoesArr={shoesArr}/>
-              <button className="btn btn-danger" onClick={()=>{
-                 axios.get('https://codingapple1.github.io/shop/data2.json')
-                 .then((result)=>{
-                    shoesArr.push(...result.data);
-                    console.log(shoesArr);
-                    setShoes(shoesArr);
-                 })
-                 .catch(()=>{console.log("실패")});
-              }}>더보기</button>
+            { loading==true
+                ? <Loading/>
+                : null
+            }
+             <button className="btn btn-danger" onClick={()=>{
+                setLoading(true);
+                axios.get('https://codingapple1.github.io/shop/data2.json')
+                .then((result)=>{
+                   setLoading(false);
+                   shoesArr.push(...result.data);
+                   console.log(shoesArr);
+                   setShoes(shoesArr);
+                })
+                .catch(()=>{
+                setLoading(false);
+                alert("실패")});
+
+             }}>더보기</button>
          </Route>
          <Route path="/detail/:id" >
             <Detail shoes = {shoes}/>
@@ -132,6 +142,15 @@ function Modal(){
         </div>
     );
 
+}
+
+function Loading() {
+
+    return(
+        <div className="loading">
+            <p>로딩중입니다</p>
+        </div>
+    )
 }
 
 export default App;

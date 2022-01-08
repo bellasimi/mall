@@ -2,6 +2,8 @@ import React, { useState,useEffect } from 'react';
 import { useHistory,useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import './Detail.scss';
+import {axios} from 'axios';
+
 let 새박스 = styled.h4`
     font-size : 30px;
     padding : 20px;
@@ -15,11 +17,15 @@ function Detail(props){
     let history = useHistory();
     //let [alert,setAlert] = useState(document.querySelector('.my-alert2'));
     let [alert,setAlert] = useState(true);
-
+    useEffect(()=>{
+        axios.get()
+    },[]);
     useEffect(()=>{
         let 타이머 = setTimeout(()=>{setAlert(false)},2000);
         return ()=>{clearTimeout(타이머)}
     },[alert]);
+
+
         /*return function 함수명(){
             //컴포넌트가 사라질 때 코드 실행 (언마운트시)
         }
