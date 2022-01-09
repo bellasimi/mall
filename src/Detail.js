@@ -1,9 +1,9 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect,useContext } from 'react';
 import { useHistory,useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import './Detail.scss';
 import {axios} from 'axios';
-
+import { leftCon } from './App.js';
 let 새박스 = styled.h4`
     font-size : 30px;
     padding : 20px;
@@ -37,6 +37,8 @@ function Detail(props){
 
     let [content,setContent] = useState("");
     let leftArr = [...props.left];
+    let left = useContext(leftCon);
+
 
     const order = ()=>{
          if(leftArr[id]>0){
@@ -54,6 +56,7 @@ function Detail(props){
                     : null
               }
               <input onChange={(e)=>{setContent(e.target.value)}}/>
+
               <div className="row">
                 <div className="col-md-6">
                   <img src={require("./img/"+props.shoes[id].img)} width="100%" />
@@ -62,12 +65,16 @@ function Detail(props){
                   <h4 className="pt-5">{props.shoes[id].title}</h4>
                   <p>{props.shoes[id].content}</p>
                   <p>{props.shoes[id].price}</p>
+                  <p>재고: {left[id]}개</p>
                   <Left left={props.left} id={id}/>
                   <button className="btn btn-danger" onClick={order}>주문하기</button>
                   <button className="btn btn-danger" onClick={()=>{history.goBack()}}>주문취소</button>
                   <button className="btn btn-danger" onClick={()=>{history.push("/anywhere")}}>아무거나</button>
                 </div>
               </div>
+
+
+
         </div>
     )
 

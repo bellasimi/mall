@@ -3,12 +3,15 @@ import logo from './logo.svg';
 import './App.css';
 import './main.scss';
 import { Container,Navbar,Nav,NavDropdown,FormControl,Button,Form} from 'react-bootstrap';
-import React, { useState } from 'react';
 import data from './data.js';
 import {Link, Route, Switch } from 'react-router-dom';
+import React, { useState,useContext } from 'react';
 import Detail from './Detail.js';
 import axios from 'axios';
 
+let leftCon = React.createContext();
+
+export { leftCon };
 
 function App() {
 
@@ -58,28 +61,35 @@ function App() {
 
     <Switch>
          <Route exact path="/">
-            <Main shoes={shoes} shoesArr={shoesArr}/>
-            { loading==true
-                ? <Loading/>
-                : null
-            }
-             <button className="btn btn-danger" onClick={()=>{
-                setLoading(true);
-                axios.get('https://codingapple1.github.io/shop/data2.json')
-                .then((result)=>{
-                   setLoading(false);
-                   shoesArr.push(...result.data);
-                   console.log(shoesArr);
-                   setShoes(shoesArr);
-                })
-                .catch(()=>{
-                setLoading(false);
-                alert("실패")});
+            <leftCon.Provider value={left}>
+                <Main shoes={shoes} shoesArr={shoesArr}/>
 
-             }}>더보기</button>
+            </leftCon.Provider>
+                { loading==true
+                    ? <Loading/>
+                    : null
+                }
+                 <button className="btn btn-danger" onClick={()=>{
+                    setLoading(true);
+                    axios.get('https://codingapple1.github.io/shop/data2.json')
+                    .then((result)=>{
+                       setLoading(false);
+                       shoesArr.push(...result.data);
+                       console.log(shoesArr);
+                       setShoes(shoesArr);
+                    })
+                    .catch(()=>{
+                    setLoading(false);
+                    alert("실패")});
+
+                 }}>더보기</button>
+
+
          </Route>
          <Route path="/detail/:id" >
-            <Detail shoes = {shoes} left={left} setLeft={setLeft}/>
+            <leftCon.Provider value={left}>
+                <Detail shoes = {shoes} left={left} setLeft={setLeft}/>
+            </leftCon.Provider>
 
          </Route>
          <Route path="/abc" component={Modal}></Route>
@@ -106,6 +116,8 @@ function Main(props) {
                <p>
                </p>
              </header>
+
+
              <div className="container">
                  <div className="row">
                      {
@@ -119,20 +131,25 @@ function Main(props) {
 
                  </div>
              </div>
-
         </div>
     )
 }
 
 function Device(props) {
+
+    let left = useContext(leftCon);
+
     return(
             <div className="col-md-4">
-                <Link to = {"/detail/"+props.shoes[props.idx].id}>
                    <p>{props.each.id}</p>
-                   <img src= { 'img/' + props.shoes[props.idx].img}></img>
+                   <Link to = {"/detail/"+props.shoes[props.idx].id}>
+                        <img src= { 'img/' + props.shoes[props.idx].img}></img>
+                   </Link>
                    <h2>{props.shoes[props.idx].title}</h2>
                    <p>{props.shoes[props.idx].price}</p>
-                </Link>
+                   <p>재고: {left[props.idx]}개</p>
+
+
             </div>
     );
 }
