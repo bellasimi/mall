@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import './Detail.scss';
 import {axios} from 'axios';
 import { leftCon } from './App.js';
+import { Container,Navbar,Nav,NavDropdown,FormControl,Button,Form} from 'react-bootstrap';
 let 새박스 = styled.h4`
     font-size : 30px;
     padding : 20px;
@@ -38,7 +39,7 @@ function Detail(props){
     let [content,setContent] = useState("");
     let leftArr = [...props.left];
     let left = useContext(leftCon);
-
+    let [tab,setTab] = useState(0);
 
     const order = ()=>{
          if(leftArr[id]>0){
@@ -48,6 +49,7 @@ function Detail(props){
     }
     return(
         <div className="container">
+
               <새박스 색상 = 'red' className="black">Detail</새박스>
               { alert===true
                     ? <div className="my-alert2" value="야호">
@@ -73,6 +75,20 @@ function Detail(props){
                 </div>
               </div>
 
+              <Nav className="mt-5" variant="tabs" defaultActiveKey="link-0">
+                <Nav.Item>
+                  <Nav.Link eventKey="link-0" onClick={setTab.bind(this,0)}>Active</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey="link-1" onClick={setTab.bind(this,1)}>Option 2</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Nav.Link eventKey="link-2" onClick={setTab.bind(this,2)}>Option 3</Nav.Link>
+                </Nav.Item>
+              </Nav>
+
+
+               <TabCont tab={tab}/>
 
 
         </div>
@@ -80,11 +96,22 @@ function Detail(props){
 
 }
 
-function Left(props) {
-    return (
-        <p>재고 : {props.left[props.id]}개</p>
+    function Left(props) {
+        return (
+            <p>재고 : {props.left[props.id]}개</p>
 
-    )
-}
+        )
+    }
+
+    function TabCont(props) {
+
+        if(props.tab===0){
+           return <div>0탭의 내용입니다.</div>
+        }else if(props.tab===1){
+           return <div>1탭의 내용입니다.</div>
+        }else if(props.tab===2){
+           return <div>2탭의 내용입니다.</div>
+        }
+    }
 
 export default Detail;
