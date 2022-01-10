@@ -8,7 +8,7 @@ import {Link, Route, Switch } from 'react-router-dom';
 import React, { useState,useContext } from 'react';
 import Detail from './Detail.js';
 import axios from 'axios';
-
+import Cart from './Cart.js';
 let leftCon = React.createContext();
 
 export { leftCon };
@@ -93,6 +93,9 @@ function App() {
 
          </Route>
          <Route path="/abc" component={Modal}></Route>
+         <Route path="/cart">
+            <Cart/>
+         </Route>
          <Route path="/:id">
             <div>아무거나 Link로 적으면 이페이지를 보여줌</div>
          </Route>
