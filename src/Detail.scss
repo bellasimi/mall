@@ -25,8 +25,15 @@ $mainColor : white;
     background: #ffe591;
 }
 
+.yesTab-enter {
+    opacity: 0; /* 투명도 */
+    font-size: 30pt;
+}
 
-
+.yesTab-enter-active {
+    opacity: 1;
+    transition: all 500ms;
+}
 
 /*
 div.container h4 {

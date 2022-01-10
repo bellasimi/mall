@@ -2,8 +2,9 @@ import React, { useState,useEffect,useContext } from 'react';
 import { useHistory,useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import './Detail.scss';
-import {axios} from 'axios';
+import { axios } from 'axios';
 import { leftCon } from './App.js';
+import { CSSTransition } from 'react-transition-group';
 import { Container,Navbar,Nav,NavDropdown,FormControl,Button,Form} from 'react-bootstrap';
 let 새박스 = styled.h4`
     font-size : 30px;
@@ -40,6 +41,7 @@ function Detail(props){
     let leftArr = [...props.left];
     let left = useContext(leftCon);
     let [tab,setTab] = useState(0);
+    let [yesTab,setYesTab] = useState(false);
 
     const order = ()=>{
          if(leftArr[id]>0){
@@ -49,7 +51,6 @@ function Detail(props){
     }
     return(
         <div className="container">
-
               <새박스 색상 = 'red' className="black">Detail</새박스>
               { alert===true
                     ? <div className="my-alert2" value="야호">
@@ -74,21 +75,21 @@ function Detail(props){
                   <button className="btn btn-danger" onClick={()=>{history.push("/anywhere")}}>아무거나</button>
                 </div>
               </div>
-
               <Nav className="mt-5" variant="tabs" defaultActiveKey="link-0">
                 <Nav.Item>
-                  <Nav.Link eventKey="link-0" onClick={setTab.bind(this,0)}>Active</Nav.Link>
+                  <Nav.Link eventKey="link-0" onClick={()=>{setYesTab(false); setTab(0); }}>Active</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                  <Nav.Link eventKey="link-1" onClick={setTab.bind(this,1)}>Option 2</Nav.Link>
+                  <Nav.Link eventKey="link-1" onClick={()=>{setYesTab(false); setTab(1);}}>Option 2</Nav.Link>
                 </Nav.Item>
                 <Nav.Item>
-                  <Nav.Link eventKey="link-2" onClick={setTab.bind(this,2)}>Option 3</Nav.Link>
+                  <Nav.Link eventKey="link-2" onClick={()=>{setYesTab(false); setTab(2);}}>Option 3</Nav.Link>
                 </Nav.Item>
               </Nav>
 
-
-               <TabCont tab={tab}/>
+               <CSSTransition in={yesTab} classNames="yesTab" timeout={500}>
+                    <TabCont tab={tab} setYesTab={setYesTab}/>
+               </CSSTransition>
 
 
         </div>
@@ -104,6 +105,11 @@ function Detail(props){
     }
 
     function TabCont(props) {
+
+        useEffect(()=>{
+            props.setYesTab(true);
+        });
+
 
         if(props.tab===0){
            return <div>0탭의 내용입니다.</div>
