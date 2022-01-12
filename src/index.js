@@ -9,16 +9,25 @@ import {createStore,combineReducers} from 'redux';
 
 
 let 기본값 = [
-{id : 0, name : "애플", quan : 2 },
-{id : 1, name : "애플2", quan : 1 },
-{id : 2, name : "애플3", quan : 7 }
+{id : 3, title : "애플", quan : 2 },
+{id : 4, title : "애플2", quan : 1 },
+{id : 5, title : "애플3", quan : 7 },
+{
+    id : 1,
+    title : "아이폰",
+    content : "high-end smartphone",
+    price : "1,200,000원",
+    img : "iphone.jpg",
+     quan : 12
+  }
 ];
 
 /*  state가 될 변수 관리:삭제 */
 function reducer(state = 기본값, 디스패치){
     let copy = [...state];
+
     if(디스패치.type === "+"){
-        copy[디스패치.idx].quan++;
+        copy[디스패치.idx].quan ++;
         return copy
 
     }else if( 디스패치.type === "-"){
@@ -27,6 +36,18 @@ function reducer(state = 기본값, 디스패치){
         }
 
         return copy
+    }else if(디스패치.type==="addGoods"){
+        let idExist = copy.some(e => e.id === 디스패치.payload.id);
+
+        if(idExist){
+            let idx = copy.map(e => e.id).indexOf(디스패치.payload.id);
+            //copy.findIndex(e => e.id === 디스패치.payload.id);
+            copy[idx].quan++;
+        }else{
+             copy.push(디스패치.payload);
+        }
+        return copy;
+
     }else{
         return state
     }

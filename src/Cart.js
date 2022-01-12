@@ -20,7 +20,7 @@ function Cart(props) {
                     return(
                         <tr key={each.id}>
                           <td>{ each.id }</td>
-                          <td>{ each.name }</td>
+                          <td>{ each.title }</td>
                           <td>{ each.quan }</td>
                           <td>
                               <button onClick={()=>{ props.dispatch({type:"+",idx:idx}) }}>+</button>
@@ -48,6 +48,7 @@ function Cart(props) {
 }
 
 function makeProps(state){
+console.log(state);
     return {
         state : state.reducer,
         alert : state.reducer2

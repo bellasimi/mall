@@ -6,6 +6,8 @@ import { axios } from 'axios';
 import { leftCon } from './App.js';
 import { CSSTransition } from 'react-transition-group';
 import { Container,Navbar,Nav,NavDropdown,FormControl,Button,Form} from 'react-bootstrap';
+import { connect } from 'react-redux';
+
 let 새박스 = styled.h4`
     font-size : 30px;
     padding : 20px;
@@ -62,7 +64,7 @@ function Detail(props){
 
               <div className="row">
                 <div className="col-md-6">
-                  <img src={require("./img/"+props.shoes[id].img)} width="100%" />
+                    <img src={require("./img/"+props.shoes[id].img)} width="100%" />
                 </div>
                 <div className="col-md-6 mt-4">
                   <h4 className="pt-5">{props.shoes[id].title}</h4>
@@ -71,11 +73,15 @@ function Detail(props){
                   <p>재고: {left[id]}개</p>
                   <Left left={props.left} id={id}/>
                   <button className="btn btn-danger" onClick={order}>주문하기</button>
-                  <button className="btn btn-danger" onClick={()=>{history.push("/cart")}}>장바구니</button>
+                  <button className="btn btn-danger" onClick={()=>{
+                      props.dispatch({ type:"addGoods", payload: props.shoes[id] })
+                      history.push("/cart")}
+                  }>장바구니</button>
                   <button className="btn btn-danger" onClick={()=>{history.goBack()}}>주문취소</button>
                   <button className="btn btn-danger" onClick={()=>{history.push("/anywhere")}}>아무거나</button>
                 </div>
               </div>
+
               <Nav className="mt-5" variant="tabs" defaultActiveKey="link-0">
                 <Nav.Item>
                   <Nav.Link eventKey="link-0" onClick={()=>{setYesTab(false); setTab(0); }}>Active</Nav.Link>
@@ -111,7 +117,6 @@ function Detail(props){
             props.setYesTab(true);
         });
 
-
         if(props.tab===0){
            return <div>0탭의 내용입니다.</div>
         }else if(props.tab===1){
@@ -121,4 +126,10 @@ function Detail(props){
         }
     }
 
-export default Detail;
+    function detailRedux(state) {
+        return{
+            goods : state.reducer
+        }
+    }
+
+export default connect(detailRedux)(Detail);
