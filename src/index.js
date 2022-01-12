@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import {Provider} from 'react-redux';
-import {createStore} from 'redux';
+import {createStore,combineReducers} from 'redux';
 
 
 let 기본값 = [
@@ -32,8 +32,23 @@ function reducer(state = 기본값, 디스패치){
     }
 }
 
+
+
+
+/* 매진 임박*/
+
+function reducer2(state = true,디스패치) {
+    if(디스패치.type === "off"){
+        return false;
+    }else if(디스패치.type === "on"){
+        return true;
+    }else {
+        return state;
+    }
+}
+
 /* createStore() 거치면 변수가 state화 */
-let store = createStore(reducer);
+let store = createStore(combineReducers({reducer,reducer2}));
 
 ReactDOM.render(
   <React.StrictMode>
