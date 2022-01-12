@@ -71,6 +71,7 @@ function Detail(props){
                   <p>재고: {left[id]}개</p>
                   <Left left={props.left} id={id}/>
                   <button className="btn btn-danger" onClick={order}>주문하기</button>
+                  <button className="btn btn-danger" onClick={()=>{history.push("/cart")}}>장바구니</button>
                   <button className="btn btn-danger" onClick={()=>{history.goBack()}}>주문취소</button>
                   <button className="btn btn-danger" onClick={()=>{history.push("/anywhere")}}>아무거나</button>
                 </div>
