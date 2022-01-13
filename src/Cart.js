@@ -1,10 +1,11 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
-import { connect,useSelector } from 'react-redux';
+import { connect,useSelector,useDispatch } from 'react-redux';
 
 function Cart(props) {
 
     let state = useSelector((state)=> state.reducer)
+    let dispatch = useDispatch();
 
     return(
         <div>
@@ -26,8 +27,8 @@ function Cart(props) {
                           <td>{ each.title }</td>
                           <td>{ each.quan }</td>
                           <td>
-                              <button onClick={()=>{ props.dispatch({type:"+",idx:idx}) }}>+</button>
-                              <button onClick={()=>{ props.dispatch({type:"-",idx:idx}) }}>-</button>
+                              <button onClick={()=>{ dispatch({type:"+",idx:idx}) }}>+</button>
+                              <button onClick={()=>{ dispatch({type:"-",idx:idx}) }}>-</button>
                           </td>
                         </tr>
                     )
