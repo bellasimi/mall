@@ -1,8 +1,11 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
-import { connect } from 'react-redux';
+import { connect,useSelector } from 'react-redux';
 
 function Cart(props) {
+
+    let state = useSelector((state)=> state.reducer)
+
     return(
         <div>
             <Table striped bordered hover>
@@ -16,7 +19,7 @@ function Cart(props) {
               </thead>
               <tbody>
               {
-                 props.state.map((each,idx)=>{
+                 state.map((each,idx)=>{
                     return(
                         <tr key={each.id}>
                           <td>{ each.id }</td>
@@ -47,15 +50,15 @@ function Cart(props) {
     )
 }
 
-function makeProps(state){
+/*function makeProps(state){
 console.log(state);
     return {
         state : state.reducer,
         alert : state.reducer2
     }
 
-}
+}*/
 
-export default connect(makeProps)(Cart);
+//export default connect(makeProps)(Cart);
 
-//export default Cart;
+export default Cart;

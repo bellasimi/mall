@@ -9,6 +9,7 @@ import React, { useState,useContext } from 'react';
 import Detail from './Detail.js';
 import axios from 'axios';
 import Cart from './Cart.js';
+
 let leftCon = React.createContext();
 
 export { leftCon };
@@ -24,7 +25,7 @@ function App() {
    <div className="App">
      <Navbar bg="light" expand="lg">
        <Container fluid>
-         <Navbar.Brand href="#">Navbar scroll</Navbar.Brand>
+         <Navbar.Brand href="/">Shopping</Navbar.Brand>
          <Navbar.Toggle aria-controls="navbarScroll" />
          <Navbar.Collapse id="navbarScroll">
            <Nav
