@@ -4,8 +4,8 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-import {Provider} from 'react-redux';
 import {createStore,combineReducers} from 'redux';
+import { Provider } from 'react-redux';
 
 
 let 기본값 = [
@@ -36,11 +36,13 @@ function reducer(state = 기본값, 디스패치){
         }
 
         return copy
-    }else if(디스패치.type==="addGoods"){
-        let idExist = copy.some(e => e.id === 디스패치.payload.id);
 
-        if(idExist){
-            let idx = copy.map(e => e.id).indexOf(디스패치.payload.id);
+    }else if(디스패치.type==="addGoods"){
+        //let idExist = copy.some(e => e.id === 디스패치.payload.id);
+        let idx = copy.findIndex(e => e.id === 디스패치.payload.id);
+        //if(idExist){
+        if(idx>=0){
+            //let idx = copy.map(e => e.id).indexOf(디스패치.payload.id);
             //copy.findIndex(e => e.id === 디스패치.payload.id);
             copy[idx].quan++;
         }else{
