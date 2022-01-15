@@ -4,8 +4,8 @@ import './App.css';
 import './main.scss';
 import { Container,Navbar,Nav,NavDropdown,FormControl,Button,Form} from 'react-bootstrap';
 import data from './data.js';
-import {Link, Route, Switch } from 'react-router-dom';
-import React, { useState,useContext } from 'react';
+import {Link, Route, Switch, useHistory } from 'react-router-dom';
+import React, { useState,useContext} from 'react';
 import Detail from './Detail.js';
 import axios from 'axios';
 import Cart from './Cart.js';
@@ -142,18 +142,15 @@ function Main(props) {
 function Device(props) {
 
     let left = useContext(leftCon);
+    let history = useHistory();
 
     return(
-            <div className="col-md-4">
-                   <p>{props.each.id}</p>
-                   <Link to = {"/detail/"+props.shoes[props.idx].id}>
-                        <img src= { 'img/' + props.shoes[props.idx].img}></img>
-                   </Link>
-                   <h2>{props.shoes[props.idx].title}</h2>
-                   <p>{props.shoes[props.idx].price}</p>
-                   <p>재고: {left[props.idx]}개</p>
-
-
+            <div className="col-md-4" onClick = {()=> { history.push("detail/"+props.shoes[props.idx].id)}}>
+               <p>{props.each.id}</p>
+                <img src= { 'img/' + props.shoes[props.idx].img}></img>
+               <h2>{props.shoes[props.idx].title}</h2>
+               <p>{props.shoes[props.idx].price}</p>
+               <p>재고: {left[props.idx]}개</p>
             </div>
     );
 }
