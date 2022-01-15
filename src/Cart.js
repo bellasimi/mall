@@ -41,12 +41,12 @@ function Cart(props) {
 
                 ?<div className="my-alert2">
                     <p>매진 임박!!</p>
-                        <button onClick = {()=>{ props.dispatch({type:"off"}) }}>닫기</button>
+                        <button onClick = {()=>{ dispatch({type:"off"}) }}>닫기</button>
                  </div>
 
                 : null
             }
-                <button onClick= {()=>{ props.dispatch({type:"on"}) }}>열기</button>
+                <button onClick= {()=>{ dispatch({type:"on"}) }}>열기</button>
         </div>
     )
 }

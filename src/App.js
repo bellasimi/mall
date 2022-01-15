@@ -20,6 +20,7 @@ function App() {
     let shoesArr = [...shoes];
     let [loading,setLoading] = useState(false);
     let [left,setLeft] = useState([10,11,12]);
+    let [age,setAge] = useState(1);
 
   return (
    <div className="App">
@@ -63,27 +64,9 @@ function App() {
     <Switch>
          <Route exact path="/">
             <leftCon.Provider value={left}>
-                <Main shoes={shoes} shoesArr={shoesArr}/>
-
+                <Main shoes={shoes} setLoading={setLoading} setShoes={setShoes} shoesArr={shoesArr} loading={loading}/>
             </leftCon.Provider>
-                { loading==true
-                    ? <Loading/>
-                    : null
-                }
-                 <button className="btn btn-danger" onClick={()=>{
-                    setLoading(true);
-                    axios.get('https://codingapple1.github.io/shop/data2.json')
-                    .then((result)=>{
-                       setLoading(false);
-                       shoesArr.push(...result.data);
-                       console.log(shoesArr);
-                       setShoes(shoesArr);
-                    })
-                    .catch(()=>{
-                    setLoading(false);
-                    alert("실패")});
 
-                 }}>더보기</button>
 
 
          </Route>
@@ -135,6 +118,25 @@ function Main(props) {
 
                  </div>
              </div>
+
+             { props.loading==true
+                 ? <Loading/>
+                 : null
+             }
+              <button className="btn btn-danger" onClick={()=>{
+                 props.setLoading(true);
+                 axios.get('https://codingapple1.github.io/shop/data2.json')
+                 .then((result)=>{
+                    props.setLoading(false);
+                    props.shoesArr.push(...result.data);
+                    console.log(props.shoesArr);
+                    props.setShoes(props.shoesArr);
+                 })
+                 .catch(()=>{
+                    props.setLoading(false);
+                 alert("실패")});
+
+              }}>더보기</button>
         </div>
     )
 }
