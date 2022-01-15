@@ -1,22 +1,27 @@
 import React, { useState,useEffect,useContext } from 'react';
 import { useHistory,useParams } from 'react-router-dom';
-import styled from 'styled-components';
+import styled,{ css } from 'styled-components';
 import './Detail.scss';
 import { axios } from 'axios';
 import { leftCon } from './App.js';
 import { CSSTransition } from 'react-transition-group';
 import { Container,Navbar,Nav,NavDropdown,FormControl,Button,Form} from 'react-bootstrap';
-import { connect } from 'react-redux';
+import { connect,useSelector,useDispatch } from 'react-redux';
 
 let 새박스 = styled.h4`
     font-size : 30px;
     padding : 20px;
-    color : ${ props => props.색상 }
+    ${ (props) => props.변화 && css`font-size: 100px;
+        color : ${ (props) => props.색상 }
+    `}
+
 `;
 
 
-function Detail(props){
 
+function Detail(props){
+    let dispatch = useDispatch();
+    let goods = useSelector((state)=> state.reducer);
     let { id } = useParams();
     let history = useHistory();
     //let [alert,setAlert] = useState(document.querySelector('.my-alert2'));
@@ -53,7 +58,7 @@ function Detail(props){
     }
     return(
         <div className="container">
-              <새박스 색상 = 'red' className="black">Detail</새박스>
+              <새박스 색상 = 'red' 변화 = 'on' className="black">Detail</새박스>
               { alert===true
                     ? <div className="my-alert2" value="야호">
                         <p>재고가 얼마 남지 않았습니다!!</p>
@@ -74,7 +79,7 @@ function Detail(props){
                   <Left left={props.left} id={id}/>
                   <button className="btn btn-danger" onClick={order}>주문하기</button>
                   <button className="btn btn-danger" onClick={()=>{
-                      props.dispatch({ type:"addGoods", payload: props.shoes[id] })
+                      dispatch({ type:"addGoods", payload: props.shoes[id] })
                       history.push("/cart")}
                   }>장바구니</button>
                   <button className="btn btn-danger" onClick={()=>{history.goBack()}}>주문취소</button>
@@ -113,23 +118,42 @@ function Detail(props){
 
     function TabCont(props) {
 
+        let [tabDiv,setTabDiv] = useState(
+            { 0 : <div>0탭의 내용입니다.</div>,
+              1 : <div>1탭의 내용입니다.</div>,
+              2 : <div>2탭의 내용입니다.</div>
+            }
+        );
+
         useEffect(()=>{
             props.setYesTab(true);
         });
 
-        if(props.tab===0){
+        return(
+            <div>
+                {
+                    tabDiv[props.tab]
+                }
+            </div>
+        )
+
+
+
+
+/*        if(props.tab===0){
            return <div>0탭의 내용입니다.</div>
         }else if(props.tab===1){
            return <div>1탭의 내용입니다.</div>
         }else if(props.tab===2){
            return <div>2탭의 내용입니다.</div>
-        }
-    }
+        }*/
+    }//tabContent 종료료
 
-    function detailRedux(state) {
+/*   function detailRedux(state) {
         return{
             goods : state.reducer
         }
-    }
+    }*/
 
-export default connect(detailRedux)(Detail);
+//export default connect(detailRedux)(Detail);
+export default Detail;
