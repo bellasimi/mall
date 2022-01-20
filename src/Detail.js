@@ -5,18 +5,23 @@ import './Detail.scss';
 import { axios } from 'axios';
 import { leftCon } from './App.js';
 import { CSSTransition } from 'react-transition-group';
-import { Container,Navbar,Nav,NavDropdown,FormControl,Button,Form} from 'react-bootstrap';
+import { Container,Navbar,Nav,NavDropdown,FormControl,Button,Form,CardGroup,Card} from 'react-bootstrap';
 import { connect,useSelector,useDispatch } from 'react-redux';
 
 let 새박스 = styled.h4`
-    font-size : 30px;
-    padding : 20px;
+    font-size: 30px;
+    padding: 20px;
     ${ (props) => props.변화 && css`font-size: 100px;
-        color : ${ (props) => props.색상 }
+        color: ${ (props) => props.색상 }
     `}
 
 `;
 
+let TabBox = styled.div`
+    height: 400px;
+
+
+`
 
 
 function Detail(props){
@@ -26,10 +31,8 @@ function Detail(props){
     let history = useHistory();
     //let [alert,setAlert] = useState(document.querySelector('.my-alert2'));
     let [alert,setAlert] = useState(true);
-    /* 시작할 떄 한번 실행
-    useEffect(()=>{
-            axios.get()
-    },[]);*/
+
+
     useEffect(()=>{
         let 타이머 = setTimeout(()=>{setAlert(false)},2000);
         return ()=>{clearTimeout(타이머)}
@@ -119,9 +122,9 @@ function Detail(props){
     function TabCont(props) {
 
         let [tabDiv,setTabDiv] = useState(
-            { 0 : <div>0탭의 내용입니다.</div>,
-              1 : <div>1탭의 내용입니다.</div>,
-              2 : <div>2탭의 내용입니다.</div>
+            { 0 : <TabBox>0탭의 내용입니다.</TabBox>,
+              1 : <TabBox>1탭의 내용입니다.</TabBox>,
+              2 : <TabBox>2탭의 내용입니다.</TabBox>
             }
         );
 
