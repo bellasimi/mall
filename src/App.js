@@ -2,13 +2,14 @@
 import logo from './logo.svg';
 import './App.css';
 import './main.scss';
+import React, { useState,useContext, useEffect,lazy,Suspense,memo } from 'react';
 import { Container,Navbar,Nav,NavDropdown,FormControl,Button,Form} from 'react-bootstrap';
 import data from './data.js';
 import {Link, Route, Switch, useHistory } from 'react-router-dom';
-import React, { useState,useContext} from 'react';
-import Detail from './Detail.js';
 import axios from 'axios';
 import Cart from './Cart.js';
+//import Detail from './Detail.js';
+let Detail = lazy(()=> import('./Detail.js') )
 
 let leftCon = React.createContext();
 
@@ -20,7 +21,6 @@ function App() {
     let shoesArr = [...shoes];
     let [loading,setLoading] = useState(false);
     let [left,setLeft] = useState([10,11,12]);
-    let [age,setAge] = useState(1);
 
   return (
    <div className="App">
@@ -66,16 +66,16 @@ function App() {
             <leftCon.Provider value={left}>
                 <Main shoes={shoes} setLoading={setLoading} setShoes={setShoes} shoesArr={shoesArr} loading={loading}/>
             </leftCon.Provider>
-
-
-
          </Route>
+
          <Route path="/detail/:id" >
             <leftCon.Provider value={left}>
+               <Suspense fallback={<div>로딩중입니다.</div>}>
                 <Detail shoes = {shoes} left={left} setLeft={setLeft}/>
+               </Suspense>
             </leftCon.Provider>
-
          </Route>
+
          <Route path="/abc" component={Modal}></Route>
          <Route path="/cart">
             <Cart/>
@@ -103,7 +103,6 @@ function Main(props) {
                <p>
                </p>
              </header>
-
 
              <div className="container">
                  <div className="row">
@@ -148,8 +147,8 @@ function Device(props) {
 
     return(
             <div className="col-md-4" onClick = {()=> { history.push("detail/"+props.shoes[props.idx].id)}}>
-               <p>{props.each.id}</p>
-                <img src= { 'img/' + props.shoes[props.idx].img}></img>
+               <p/>
+               <img src= { require('./img/' + props.shoes[props.idx].img) }></img>
                <h2>{props.shoes[props.idx].title}</h2>
                <p>{props.shoes[props.idx].price}</p>
                <p>재고: {left[props.idx]}개</p>
