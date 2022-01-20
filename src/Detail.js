@@ -31,6 +31,20 @@ function Detail(props){
     let history = useHistory();
     //let [alert,setAlert] = useState(document.querySelector('.my-alert2'));
     let [alert,setAlert] = useState(true);
+    let seenArr = JSON.parse(localStorage.getItem('seenGoods'));
+
+    /*시작할 떄 한번 실행 */
+    useEffect(()=>{
+        if( seenArr != null){
+            if( !seenArr.some(e=>e === id) ){
+             seenArr.push(id)
+             localStorage.setItem('seenGoods',JSON.stringify(seenArr))
+            }
+        }else{
+            seenArr = [id];
+            localStorage.setItem('seenGoods',JSON.stringify(seenArr))
+        }
+    },[]);
 
 
     useEffect(()=>{
@@ -52,6 +66,7 @@ function Detail(props){
     let left = useContext(leftCon);
     let [tab,setTab] = useState(0);
     let [yesTab,setYesTab] = useState(false);
+
 
     const order = ()=>{
          if(leftArr[id]>0){
@@ -105,6 +120,32 @@ function Detail(props){
                <CSSTransition in={yesTab} classNames="yesTab" timeout={500}>
                     <TabCont tab={tab} setYesTab={setYesTab}/>
                </CSSTransition>
+
+                <p>최근 본 상품</p>
+               <CardGroup>
+                   { seenArr != null
+                      ? seenArr.map((each,idx)=>{ return (
+                        <Card key= {idx} onClick= {()=>{ history.push("/detail/"+each)}}>
+                           <Card.Img variant="top" src= { require("./img/"+props.shoes[each].img)} />
+                           <Card.Body>
+                             <Card.Title>{props.shoes[each].title}</Card.Title>
+                             <Card.Text>
+                                {props.shoes[each].content}
+                             </Card.Text>
+                           </Card.Body>
+                           <Card.Footer>
+                             <small className="text-muted">
+                                <button className="btn btn-danger" onClick={()=> {
+                                   seenArr = seenArr.filter(e=> e !== each);
+                                   localStorage.setItem('seenGoods',JSON.stringify(seenArr));
+                                }}>삭제</button>
+                             </small>
+                           </Card.Footer>
+                         </Card>
+                        )})
+                      : null
+                   }
+               </CardGroup>
 
 
         </div>
